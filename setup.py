@@ -49,7 +49,7 @@ else:
     elif BUILD_TARGET == "rocm":
         IS_ROCM = True
 
-PACKAGE_NAME = "flash_attn_ours"
+PACKAGE_NAME = "dfav2"
 
 BASE_WHEEL_URL = (
     "https://github.com/Dao-AILab/flash-attention/releases/download/{tag_name}/{wheel_name}"
@@ -149,7 +149,7 @@ if not SKIP_CUDA_BUILD and not IS_ROCM:
     TORCH_MAJOR = int(torch.__version__.split(".")[0])
     TORCH_MINOR = int(torch.__version__.split(".")[1])
 
-    check_if_cuda_home_none("flash_attn_ours")
+    check_if_cuda_home_none("dfav2")
     # Check, if CUDA11 is installed for compute capability 8.0
     cc_flag = []
     if CUDA_HOME is not None:
@@ -323,7 +323,7 @@ elif not SKIP_CUDA_BUILD and IS_ROCM:
         if os.path.exists(os.path.join(torch_dir, "include", "ATen", "CUDAGeneratorImpl.h")):
             generator_flag = ["-DOLD_GENERATOR_PATH"]
 
-        check_if_rocm_home_none("flash_attn_ours")
+        check_if_rocm_home_none("dfav2")
         archs = os.getenv("GPU_ARCHS", "native").split(";")
         validate_and_update_archs(archs)
 
@@ -406,7 +406,7 @@ elif not SKIP_CUDA_BUILD and IS_ROCM:
 
 
 def get_package_version():
-    with open(Path(this_dir) / "flash_attn_ours" / "__init__.py", "r") as f:
+    with open(Path(this_dir) / "dfav2" / "__init__.py", "r") as f:
         version_match = re.search(r"^__version__\s*=\s*(.*)$", f.read(), re.MULTILINE)
     public_version = ast.literal_eval(version_match.group(1))
     local_version = os.environ.get("FLASH_ATTN_LOCAL_VERSION")
@@ -514,7 +514,7 @@ setup(
             "dist",
             "docs",
             "benchmarks",
-            "flash_attn_ours.egg-info",
+            "dfav2.egg-info",
         )
     ),
     author="Tri Dao",

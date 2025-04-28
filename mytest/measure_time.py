@@ -1,4 +1,3 @@
-
 from torch.nn.attention.flex_attention import _mask_mod_signature
 import sys
 import argparse
@@ -238,7 +237,9 @@ def main(argv):
 
         
     if args.full_arrow:
-        from flash_attn_ours import  headwise_arrow_attn
+        # from flash_attn_ours import  headwise_arrow_attn
+        from dfav2 import  headwise_arrow_attn
+
         hw_fa_times = []
         flex_full_arrow_times = []
         output_hw_full_arrows_rights = []

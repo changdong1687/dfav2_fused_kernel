@@ -1354,6 +1354,7 @@ def headwise_arrow_attn(
         False
     )
 
+"""
 def headwise_half_arrow_attn(
     q,
     k,
@@ -1393,6 +1394,7 @@ def headwise_half_arrow_attn(
         False,
         False
     )
+"""
 
 def headwise_window_attn(
     q,
