@@ -841,9 +841,10 @@ class FlashAttnFunc(torch.autograd.Function):
         window_sizes = torch.zeros(q.shape[2], 2, dtype=torch.int32, device=q.device) - 1
         window_size_lefts = window_sizes[:, 0] - 0
         window_size_rights = window_sizes[:, 1] - 0
+        need_residual=torch.zeros(q.shape[2], 1, dtype=torch.int32, device=q.device)
         
         # print("OURS: call FlashAttnFunc in flash_attn_interface.py")
-        out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_forward(
+        out_padded, out_residual, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_forward(
             q,
             k,
             v,
@@ -852,6 +853,7 @@ class FlashAttnFunc(torch.autograd.Function):
             causal=causal,
             window_size_left=window_size[0],
             window_size_right=window_size[1],
+            need_residual=need_residual,
             softcap=softcap,
             alibi_slopes=alibi_slopes,
             return_softmax=return_softmax and dropout_p > 0,
